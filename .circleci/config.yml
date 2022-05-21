@@ -1,6 +1,4 @@
 version: 2.1
-orbs: 
-  react: thefrontside/react@0.2.0
 jobs:
   build:
     docker:
@@ -17,7 +15,16 @@ jobs:
           command: |
             ls -al
             echo '^^^The files in your repo^^^'
-      - run: npm install
-      - run: npm start
-      - run: netifly:deploy
+        
+      - run: yarn install
+      
+      - save_cache:
+         paths:
+          - node_modules
+        key:v1-dependencies-{{checksum"package.json"}}
+      
+      #run tests!
+      - run:yarn test
+      - run:yarn build
+      - run:yarn netlify:deploy
 
