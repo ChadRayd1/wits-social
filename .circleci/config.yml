@@ -15,7 +15,7 @@ jobs:
           command: |
             ls -al
             echo '^^^The files in your repo^^^'
-      - run: npm i
+      - run: npm install
       - run: npm start
       - run: netifly:deploy
 
